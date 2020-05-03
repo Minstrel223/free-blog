@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,7 +39,7 @@ public class MainController {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendSimpleMail(String to, String subject, String content) {
+    public void sendSimpleMail(String to, String subject, String content) throws MailException {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("abcgpsa@163.com");
         message.setTo(to); // 邮件接受者
@@ -259,9 +260,17 @@ public class MainController {
         if (target_comment_id != null) {
             Comment to = commentReposity.findById(target_comment_id).get();
             String mailContent = "您好," + to.getCommentor_name() + "。" + name + "回复您：" + content;
-            this.sendSimpleMail(to.getCommentor_email(), "您收到了一条新回复-freeblog", mailContent);
+            try {
+                this.sendSimpleMail(to.getCommentor_email(), "您收到了一条新回复-freeblog", mailContent);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         } else {
-            this.sendSimpleMail("eulerequation@126.com", "新回复", name + ": " + content);
+            try {
+                this.sendSimpleMail("eulerequation@126.com", "新回复", name + ": " + content);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
         return new MyResponse("success", null, 1);
     }
@@ -272,7 +281,11 @@ public class MainController {
             MyResponse res = new MyResponse("error: wrong token", null, 1);
             return res;
         }
-        commentReposity.deleteById(id);
+        Comment cmt = commentReposity.findById(id).get();
+        Article article = articleReposity.findById(cmt.getArticle_id()).get();
+        article.setComments_number(article.getComments_number() - 1);
+        articleReposity.save(article);
+        commentReposity.delete(cmt);
         return new MyResponse("success", null, 1);
     }
 
