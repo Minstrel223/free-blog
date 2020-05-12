@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-axios.defaults.baseURL = 'http://154.209.88.21:8080/blog/api';
+axios.defaults.baseURL = 'https://api.sakurablossom.cn/blog/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 export default {
     getNewArticles: (limit, page) => axios.get('/articles', {

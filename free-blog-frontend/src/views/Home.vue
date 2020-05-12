@@ -25,24 +25,7 @@ export default {
     };
   },
   created() {
-    let self = this;
-    api
-      .getNewArticles(8, 1)
-      .then(res => {
-        this.pages = res.data.pages;
-        let list = res.data.result;
-        for (let i of list) {
-          (function(i) {
-            api.getTags(i.article_id).then(res => {
-              i.tags = res.data.result;
-              self.list.push(i);
-            });
-          })(i);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.pageTo(1);
   },
   methods: {
     pageTo(page) {
@@ -53,11 +36,13 @@ export default {
         .then(res => {
           this.pages = res.data.pages;
           let list = res.data.result;
+          let count = 0;
           for (let i of list) {
             (function(i) {
               api.getTags(i.article_id).then(res => {
                 i.tags = res.data.result;
-                self.list.push(i);
+                count += 1;
+                if (count == list.length) self.list = list;
               });
             })(i);
           }

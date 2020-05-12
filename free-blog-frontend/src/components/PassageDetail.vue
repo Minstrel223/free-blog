@@ -23,21 +23,21 @@ export default {
   },
   created() {
     this.content = converter.makeHtml(this.passage.article_content);
-    setTimeout(function() {
-      document.querySelectorAll("pre code").forEach(block => {
-        let lines = block.innerHTML.split("\n").length - 1;
-        let numbering = document.createElement("ul");
-        numbering.className += " pre-numbering";
-        block.className += " has-numbering";
-        for (let i = 1; i <= lines; i++) {
-          let d = document.createElement("li");
-          d.innerText = i;
-          numbering.appendChild(d);
-        }
-        block.parentElement.appendChild(numbering);
-        hljs.highlightBlock(block);
-      });
-    }, 100);
+  },
+  mounted() {
+    document.querySelectorAll("pre code").forEach(block => {
+      let lines = block.innerHTML.split("\n").length - 1;
+      let numbering = document.createElement("ul");
+      numbering.className += " pre-numbering";
+      block.className += " has-numbering";
+      for (let i = 1; i <= lines; i++) {
+        let d = document.createElement("li");
+        d.innerText = i;
+        numbering.appendChild(d);
+      }
+      block.parentElement.appendChild(numbering);
+      hljs.highlightBlock(block);
+    });
   }
 };
 </script>

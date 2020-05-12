@@ -44,11 +44,13 @@ export default {
         .getArticlesByCatagoryId(this.catalogId)
         .then(res => {
           let list = res.data.result;
+          let count = 0;
           for (let i of list) {
             (function(i) {
               api.getTags(i.article_id).then(res => {
                 i.tags = res.data.result;
-                self.list.push(i);
+                count += 1;
+                if (count == list.length) self.list = list;
               });
             })(i);
           }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-axios.defaults.baseURL = 'http://154.209.88.21:8080/blog/api';
+axios.defaults.baseURL = 'https://api.sakurablossom.cn/blog/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
 if (window.sessionStorage.getItem('token'))

@@ -51,7 +51,7 @@ public class MainController {
 
     @PostMapping(path = "/login")
     public MyResponse login(@RequestParam String username, @RequestParam String password) {
-        if (userReposity.findAll() == null || !userReposity.findAll().iterator().hasNext()) {// 初次访问，进行注册
+        if (!userReposity.existsById(1)) {// 初次访问，进行注册
             User n = new User();
             n.setUser_id(1);
             n.setUser_name(username);
@@ -123,8 +123,6 @@ public class MainController {
         article.setArticle_content(content);
         article.setArticle_cover(cover);
         article.setCatagory_id(catagoryId);
-        article.setArticle_views(0);
-        article.setComments_number(0);
         articleReposity.save(article);
         Iterator<Tag> itor = tagReposity.findByArticleId(id).iterator();
         while (itor.hasNext()) {
