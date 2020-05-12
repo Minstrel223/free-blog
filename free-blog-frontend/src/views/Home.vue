@@ -36,13 +36,14 @@ export default {
         .then(res => {
           this.pages = res.data.pages;
           let list = res.data.result;
-          let count = 0;
-          for (let i of list) {
+          list.forEach(item => {
+            item.tags = [];
+          });
+          self.list = list;
+          for (let i of self.list) {
             (function(i) {
               api.getTags(i.article_id).then(res => {
                 i.tags = res.data.result;
-                count += 1;
-                if (count == list.length) self.list = list;
               });
             })(i);
           }
