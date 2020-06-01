@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      defaultImg: "https://i.loli.net/2020/03/01/58CoY2fb79SrPNj.jpg",
+      defaultImg: "https://s1.ax1x.com/2020/05/30/tMf7l9.jpg",
       currentPage: 1
     };
   },

@@ -3,6 +3,10 @@
     <div class="pg-title">{{passage.article_title}}</div>
     <div class="pg-author">{{passage.article_author+'————————'+passage.article_time}}</div>
     <div class="pg-content" v-html="content"></div>
+    <div class="share" @click="shareToWeibo" style="cursor:pointer">
+      <b-icon icon="reply"></b-icon>
+      <span>分享到微博</span>
+    </div>
   </div>
 </template>
 <script>
@@ -38,6 +42,16 @@ export default {
       block.parentElement.appendChild(numbering);
       hljs.highlightBlock(block);
     });
+  },
+  methods: {
+    shareToWeibo() {
+      let url = `http://service.weibo.com/share/share.php?url=${encodeURIComponent(
+        document.location.href
+      )}&sharesource=weibo&title=${
+        this.passage.article_title
+      }&pic=${encodeURIComponent(this.passage.article_cover)}`;
+      window.open(url);
+    }
   }
 };
 </script>

@@ -9,12 +9,11 @@ export default {
   name: "SideBar",
   data() {
     return {
-      imgUrl:
-        "https://cdn.v2ex.com/gravatar/d2bfe2e35e00858af4f0b6ff20a3194c?s=80&d=wavatar&r=x",
+      imgUrl: "https://s1.ax1x.com/2020/06/01/t8Jf5q.jpg",
       introduction: "桃之夭夭，灼灼其华<br>之子于归，宜其室家"
     };
   },
-  created() {
+  mounted() {
     setTimeout(() => {
       let info = JSON.parse(window.localStorage.getItem("siteInfo"));
       this.imgUrl = info.image_url;
