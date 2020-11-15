@@ -1,5 +1,5 @@
 # 基于Spring Boot + Vue.js 的博客系统
-[博客地址：http://sakurablossom.cn](https://sakurablossom.cn)
+[博客地址：http://sakurablossom.cn](http://sakurablossom.cn)
 
 前后端分离的设计，通过 RESTful API 进行数据传输；
 
